@@ -3,7 +3,7 @@ This app makes it easier for you to manage your listings on the [Warframe Market
   
 * Easy access to the cheapest listings of a certain item on the market;
 * Recommended listing prices based on others' listings;
-* (Future) Realtime warnings when others' sale prices lower and recommended prices for your listings based on that change
+* Warnings every 5 minutes when others' sale prices lower and recommended prices for your listings based on that change
 
 All the information this utility uses come from the warframe market website.
 

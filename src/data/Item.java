@@ -24,7 +24,7 @@ public class Item {
                         "\n\tCheapest online in-game seller: " + Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PLAYER_NAME) + " at " + Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PRICE) + "p" +
                         "\n\tCheapest online in-site seller: " + Item.getCheapestItem(listings, Item.INSITE).getValue(Item.PLAYER_NAME) + " at " + Item.getCheapestItem(listings, Item.INSITE).getValue(Item.PRICE) + "p" +
                         "\n\tCheapest offline seller: " + Item.getCheapestItem(listings, Item.OFFLINE).getValue(Item.PLAYER_NAME) + " at " + Item.getCheapestItem(listings, Item.OFFLINE).getValue(Item.PRICE) + "p" +
-                        "\n\n\tRecommended sell price: " + Math.max((int) (Integer.parseInt(Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PRICE)) * 0.95), 1) + "p" +
+                        "\n\n\tRecommended sell price: " + Math.max(Integer.parseInt(Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PRICE)) - 1, 1) + "p" +
                         "\n"
                 );
             }catch(NullPointerException e){

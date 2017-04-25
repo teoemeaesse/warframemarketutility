@@ -40,17 +40,11 @@ public class Profile {
                 if(printAlert)
                     System.out.print("\n  Cheaper " + li.getValue(Item.ITEM_NAME) + " listed on the market by: \n");
 
-                int cheapest = Integer.parseInt(comparedItems[0].getValue(Item.PRICE));
-
                 for(Item ci : comparedItems){
                     if(Integer.parseInt(ci.getValue(Item.PRICE)) < Integer.parseInt(li.getValue(Item.PRICE)) && Boolean.parseBoolean(li.getValue(Item.ONLINE_INGAME)) == Boolean.parseBoolean(ci.getValue(Item.ONLINE_INGAME))){
-                        if(Integer.parseInt(ci.getValue(Item.PRICE)) < cheapest)
-                            cheapest = Integer.parseInt(ci.getValue(Item.PRICE));
                         li.fireAlarm(ci);
                     }
                 }
-
-                System.out.print("\n  Recommended price: " + (int) (cheapest * 0.95) + "p");
             }
         }
     }

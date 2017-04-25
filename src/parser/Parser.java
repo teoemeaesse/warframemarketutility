@@ -1,8 +1,8 @@
 package parser;
 
 import com.sun.istack.internal.Nullable;
-import items.Attribute;
-import items.Item;
+import data.Attribute;
+import data.Item;
 import net.Puller;
 
 import java.io.BufferedReader;
@@ -15,33 +15,37 @@ import java.util.regex.Pattern;
 /**
  * Created by tomas on 4/23/2017.
  */
-public class DataParser {
+public class Parser {
     public static Item[] parseRawMarketData(String itemName){
         ArrayList<Item> items = new ArrayList<>();
         String data = "", sellData;
-        try{data = Puller.pullItemFromWebsite(Item.getItem(itemName));}catch(IOException e){e.printStackTrace();}
+        try{itemName = Item.getItemBasic(itemName).getValue(Item.ITEM_NAME);
+            try{
+                data = Puller.pullItemFromWebsite(Item.getItem(itemName));
 
-        String[] splitData = data.split("\"buy\": \\[");
-        sellData = splitData[0];
+                String[] splitData = data.split("\"buy\": \\[");
+                sellData = splitData[0];
 
-        String tempstr = "";
-        for(int i = 35; i < sellData.length(); i++){
-            if(sellData.charAt(i) == '}'){
-                Item item = parseRawData("\"[a-z_]{1,}\":(\")?[A-Za-z0-9 '\\-\\&\\(\\)\"]{1,}(\")?", tempstr, itemName);
-                items.add(item);
-                tempstr = "";
-                i += 3;
-            }
-            if(i < sellData.length())
-                tempstr += sellData.charAt(i);
-        }
+                String tempstr = "";
+                for(int i = 35; i < sellData.length(); i++){
+                    if(sellData.charAt(i) == '}'){
+                        Item item = parseRawData("\"[a-z_]{1,}\":(\")?[A-Za-z0-9 '\\-\\&\\(\\)\"]{1,}(\")?", tempstr, itemName);
+                        items.add(item);
+                        tempstr = "";
+                        i += 3;
+                    }
+                    if(i < sellData.length())
+                        tempstr += sellData.charAt(i);
+                }
+            }catch(IOException e){e.printStackTrace();}
+        }catch(NullPointerException e){System.out.print("\nItem not found\n");}
 
         return items.toArray(new Item[items.size()]);
     }
 
     public static Item[] parseRawItems() {
         ArrayList<Item> items = new ArrayList<>();
-        BufferedReader br = new BufferedReader(new InputStreamReader(DataParser.class.getResourceAsStream("rawitems.txt")));
+        BufferedReader br = new BufferedReader(new InputStreamReader(Parser.class.getResourceAsStream("rawitems.txt")));
         String rawData;
 
         int line = 0;

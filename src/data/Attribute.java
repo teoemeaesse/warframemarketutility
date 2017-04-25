@@ -1,4 +1,4 @@
-package items;
+package data;
 
 /**
  * Created by tomas on 4/23/2017.

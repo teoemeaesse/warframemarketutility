@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by tomas on 4/23/2017.
  */
 public class Item {
-    public static final String PLAYER_NAME = "ingame_name", ONLINE_INGAME = "online_ingame", ONLINE_INSITE = "online_status", PRICE = "price", QUANTITY = "count", ITEM_TYPE = "item_type", BASIC_ITEM_NAME = "basic_name", ITEM_NAME = "item_name";
+    public static final String PLAYER_NAME = "ingame_name", ONLINE_INGAME = "online_ingame", ONLINE_INSITE = "online_status", PRICE = "price", ITEM_TYPE = "item_type", BASIC_ITEM_NAME = "basic_name", ITEM_NAME = "item_name";
     public static final int INGAME = 0, INSITE = 1, OFFLINE = 2;
     public static final Item[] items = Parser.parseRawItems();
     private ArrayList<Attribute> attributes = new ArrayList<>();
@@ -24,7 +24,7 @@ public class Item {
                         "\n\tCheapest online in-game seller: " + Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PLAYER_NAME) + " at " + Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PRICE) + "p" +
                         "\n\tCheapest online in-site seller: " + Item.getCheapestItem(listings, Item.INSITE).getValue(Item.PLAYER_NAME) + " at " + Item.getCheapestItem(listings, Item.INSITE).getValue(Item.PRICE) + "p" +
                         "\n\tCheapest offline seller: " + Item.getCheapestItem(listings, Item.OFFLINE).getValue(Item.PLAYER_NAME) + " at " + Item.getCheapestItem(listings, Item.OFFLINE).getValue(Item.PRICE) + "p" +
-                        "\n\n\tRecommended sell price: " + Math.max(Integer.parseInt(Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PRICE)) - 1, 1) + "p" +
+                        "\n\n\tRecommended sell price: " + Math.max((int) (Integer.parseInt(Item.getCheapestItem(listings, Item.INGAME).getValue(Item.PRICE)) * 0.95), 1) + "p" +
                         "\n"
                 );
             }catch(NullPointerException e){

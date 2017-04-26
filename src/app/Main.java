@@ -17,22 +17,12 @@ public class Main {
     public static void main(String[] args) {
         init();
 
-        out("Thank you for using the Warframe Market Utility. Input is not case-sensitive and does not need whitespaces.\ns [item name]: search for item\na [item name]: create alarm for item\n");
+        out("Thank you for using the Warframe Market Utility. Input is not case-sensitive and does not need whitespaces.\n");
 
         while(true){
-            out("\n>> ");
-            String command = in.nextLine().replaceAll(" ", "").toLowerCase();
-
-            if(command.length() > 0){
-                switch(command.charAt(0)){
-                    case 's':
-                        searchForItem(command.substring(1));
-                        break;
-                    case 'a':
-                        createAlarm(command.substring(1));
-                        break;
-                }
-            }
+            out("\nEnter the item you want to search\n>> ");
+            String input = in.nextLine().replaceAll(" ", "").toLowerCase();
+            searchForItem(input);
         }
     }
 
@@ -43,6 +33,10 @@ public class Main {
 
     private static void searchForItem(String input){
         Item.sortListings(Parser.parseRawMarketData(input));
+        out("\nSet alarm? (y/enter)\n>> ");
+        String alarm = in.nextLine();
+        if(alarm.replaceAll(" ", "").toLowerCase().equals("y"))
+            createAlarm(input);
     }
 
     private static void createAlarm(String input){

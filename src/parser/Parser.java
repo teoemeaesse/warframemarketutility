@@ -48,11 +48,9 @@ public class Parser {
         BufferedReader br = new BufferedReader(new InputStreamReader(Parser.class.getResourceAsStream("rawitems.txt")));
         String rawData;
 
-        int line = 0;
         try{
             while((rawData = br.readLine()) != null){
                 items.add(parseRawData("\"[a-z_]{1,}\":\"[A-Za-z0-9 \\_'\\-\\&\\(\\)]{1,}\"", rawData, null));
-                line++;
             }
         }catch(IOException e){e.printStackTrace();}
 

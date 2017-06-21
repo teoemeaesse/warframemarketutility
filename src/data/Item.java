@@ -17,7 +17,7 @@ public class Item {
         this.attributes = attributes;
     }
 
-    public static void sortListings(Item[] listings){
+    public static boolean sortListings(Item[] listings){
         if(listings.length > 0){
             try{
                 System.out.print("\n  Item name: " + listings[0].getValue(Item.ITEM_NAME) +
@@ -30,7 +30,9 @@ public class Item {
             }catch(NullPointerException e){
                 System.out.print("\nNo sellers found for that item\n");
             }
-        }
+            return true;
+        }else
+            return false;
     }
     public void fireAlarm(Item item){
         System.out.print("\tat " + item.getValue(Item.PRICE) + "p by " + item.getValue(Item.PLAYER_NAME) + "\n");

@@ -5,6 +5,8 @@ import data.Attribute;
 import data.Item;
 import data.Profile;
 import parser.Parser;
+import persistency.Loader;
+import persistency.Saver;
 
 import java.util.Scanner;
 
@@ -20,9 +22,11 @@ public class Main {
         out("Thank you for using the Warframe Market Utility. Input is not case-sensitive and does not need whitespaces.\n");
 
         while(true){
+            Loader.load();
             out("\nEnter the item you want to search\n>> ");
             String input = in.nextLine().replaceAll(" ", "").toLowerCase();
             searchForItem(input);
+            Saver.save();
         }
     }
 
@@ -32,11 +36,11 @@ public class Main {
 
 
     private static void searchForItem(String input){
-        Item.sortListings(Parser.parseRawMarketData(input));
-        out("\nSet alarm? (y/enter)\n>> ");
-        String alarm = in.nextLine();
-        if(alarm.replaceAll(" ", "").toLowerCase().equals("y"))
-            createAlarm(input);
+        if(Item.sortListings(Parser.parseRawMarketData(input))){
+            out("\nSet alarm? (y/enter)\n>> ");
+            if(in.nextLine().replaceAll(" ", "").toLowerCase().equals("y"))
+                createAlarm(input);
+        }
     }
 
     private static void createAlarm(String input){
